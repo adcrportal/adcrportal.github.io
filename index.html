@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="ADCR Master Panel">
+
+  <!-- iOS meta tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="adcr_employees_portal">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>ADCR Master Panel</title>
+  <link rel="manifest" href="manifest.json">
+
+  <script>
+    const serviceWorkerVersion = "3223055136";
+  </script>
+
+  <script>
+    window.flutterWebRenderer = "html";
+  </script>
+
+  <script src="flutter.js" defer></script>
+
+  <!-- ================= LOADER STYLES ================= -->
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #f5f9ff, #eaf1ff);
+      font-family: system-ui, -apple-system;
+    }
+
+    #flutter-loader {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f5f9ff, #eaf1ff);
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 0.4s ease;
+    }
+
+    .loader-card {
+      width: 260px;
+      height: 180px;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(14px);
+      border-radius: 18px;
+      box-shadow: 0 20px 40px rgba(2, 58, 104, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .pulse-ring {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid #023a68;
+      animation: pulse 1.6s ease-out infinite;
+      opacity: 0;
+    }
+
+    .pulse-ring.delay {
+      animation-delay: 0.8s;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.3);
+        opacity: 0.9;
+      }
+      80% {
+        opacity: 0.2;
+      }
+      100% {
+        transform: scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    .brand {
+      text-align: center;
+      z-index: 1;
+    }
+
+    .brand span {
+      font-size: 26px;
+      font-weight: 700;
+      color: #023a68;
+      letter-spacing: 1px;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 6px;
+      font-size: 13px;
+      color: #6b7c93;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ================= LOADER ================= -->
+<div id="flutter-loader">
+  <div class="loader-card">
+    <div class="pulse-ring"></div>
+    <div class="pulse-ring delay"></div>
+
+    <div class="brand">
+      <span>ADCR</span>
+      <small>Loading dashboard…</small>
+    </div>
+  </div>
+</div>
+
+<!-- ================= FLUTTER BOOTSTRAP ================= -->
+<script>
+  const hideLoader = () => {
+    const loader = document.getElementById('flutter-loader');
+    if (!loader) return;
+
+    loader.style.opacity = '0';
+    setTimeout(() => loader.remove(), 400);
+  };
+
+  window.addEventListener('load', function () {
+    _flutter.loader.loadEntrypoint({
+      serviceWorker: {
+        serviceWorkerVersion: serviceWorkerVersion,
+      },
+      onEntrypointLoaded: function (engineInitializer) {
+        engineInitializer.initializeEngine().then(function (appRunner) {
+          appRunner.runApp();
+
+          // 🔑 ensure loader is painted before removal
+          requestAnimationFrame(() => {
+            setTimeout(hideLoader, 400);
+          });
+        });
+      }
+    });
+  });
+</script>
+
+<!-- ================= FIREBASE ================= -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+
+<script>
+  var firebaseConfig = {
+    apiKey: "AIzaSyDlz7WnnpZ9nU3nB5K3mZpCkVMQY95pJQc",
+    authDomain: "adcr-finance.firebaseapp.com",
+    projectId: "adcr-finance",
+    storageBucket: "adcr-finance.firebasestorage.app",
+    messagingSenderId: "654976317369",
+    appId: "1:654976317369:web:30fd178ff3146a44c0a868",
+    measurementId: "G-P51QYL1XNQ"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+</body>
+</html>
